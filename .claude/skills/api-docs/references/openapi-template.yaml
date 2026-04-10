@@ -1,0 +1,44 @@
+openapi: 3.0.3
+info:
+  title: Workshop API
+  version: 1.0.0
+
+paths:
+  /api/{resource}:
+    get:
+      summary: List all {resource}
+      responses:
+        "200":
+          description: Array of {resource} objects
+    post:
+      summary: Create a {resource}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/{Resource}Input"
+      responses:
+        "201":
+          description: Created {resource}
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationError"
+
+components:
+  schemas:
+    ValidationError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Validation failed
+        details:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
