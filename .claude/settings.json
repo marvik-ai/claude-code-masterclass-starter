@@ -13,6 +13,7 @@
   "permissions": {
     "allow": [
       "Bash(npm test)",
+      "Bash(npm test --*)",
       "Bash(npm run dev)",
       "Bash(npm start)",
       "Bash(npm install)",
@@ -25,11 +26,39 @@
     "deny": [
       "Bash(rm -rf *)",
       "Bash(git push --force*)"
+    ],
+    "ask": [
+      "Edit(tests/**)",
+      "Write(tests/**)"
     ]
   },
 
   "hooks": {
     "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "if": "Write(tests/*.test.js)|Edit(tests/*.test.js)|Write(tests/**/*.test.js)|Edit(tests/**/*.test.js)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npm test --silent 2>&1 | tail -5 | jq -Rs '{systemMessage: (\"Tests: \" + .)}'",
+            "timeout": 30,
+            "statusMessage": "Running tests..."
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "if": "Write(src/**)|Edit(src/**)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npm test --silent 2>&1 | tail -3 | jq -Rs '{systemMessage: (\"Tests after src change: \" + .)}'",
+            "timeout": 30,
+            "statusMessage": "Verifying tests still pass..."
+          }
+        ]
+      },
       {
         "matcher": "Write|Edit",
         "hooks": [
