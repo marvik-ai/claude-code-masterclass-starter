@@ -1,5 +1,5 @@
 ---
-globs: ["src/validators/**/*.js"]
+paths: ["src/validators/**/*.js"]
 ---
 
 # Validator Rules

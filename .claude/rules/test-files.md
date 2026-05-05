@@ -1,5 +1,5 @@
 ---
-globs: ["tests/**/*.test.js", "*.test.js"]
+paths: ["tests/**/*.test.js", "*.test.js"]
 ---
 
 # Test File Rules

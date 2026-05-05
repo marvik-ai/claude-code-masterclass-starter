@@ -1,5 +1,5 @@
 ---
-globs: ["src/db/**/*.js"]
+paths: ["src/db/**/*.js"]
 ---
 
 # Database Rules

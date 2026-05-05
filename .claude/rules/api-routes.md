@@ -1,5 +1,5 @@
 ---
-globs: ["src/api/**/*.js"]
+paths: ["src/api/**/*.js"]
 ---
 
 # API Route Rules
